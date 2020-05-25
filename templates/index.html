@@ -1,0 +1,20 @@
+
+	{% extends "base.html" %} 
+  {% block content %}
+	<form role="form" method="POST" action="/estimate">
+
+		<label for="wall-height" class="control-label">Enter wall height (feet): <span class="red">*</span></label>
+    <input type="text" id="wallHeight" name="wallHeight" placeholder="Wall Height" required>
+
+    <label for="wall-width" class="control-label">Enter wall width (feet): <span class="red">*</span></label>
+    <input type="text" id="wallWidth" name="wallWidth" placeholder="Wall Width" required>  
+
+    <button type="submit">Calculate</button>
+
+    <div class="output">
+      Your total wall area (sqft) is: <span class="calculation">{{ wallArea }}</span> <br/>
+      Amount needed in gallons for job: <span class="calculation">{{ gallonsNeeded }}</span> <br/>
+      Amount needed in quarts for job: <span class="calculation">{{ quartsNeeded }}</span>
+    </div>
+  </form>
+{% endblock %}

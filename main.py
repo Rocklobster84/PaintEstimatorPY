@@ -1,20 +1,28 @@
-# Stephanie Thompson 
-# Paint Calculator
-import math
+from flask import Flask, render_template, request
 
-gallonsNeeded = 0.0
+app = Flask(__name__)
+wallArea = float(0)
+gallonsNeeded = float(0)
+quartsNeeded = float(0)
 cansNeeded = 0.0
-sqftPerGallon = 350.0
+sqftPerGallon = float(350.0)
 gallonsPerCan = 1.0
 
-# Create var and Prompt for wall height input
-wallHeight = input("Enter wall height (feet): ")
+@app.route('/')
+def main():
+  return render_template('index.html')
 
-# Create var Prompt for wall width input
-wallWidth = input("Enter wall width (feet): ")
+@app.route('/estimate', methods=['POST'])
+def estimate(wallArea=wallArea, gallonsNeeded=gallonsNeeded, quartsNeeded=quartsNeeded):
+    if request.method == 'POST':
 
-# Calculate and output wall area
-wallArea = wallHeight * wallWidth
-print(wallArea)
+      wallHeight = request.form['wallHeight']
+      wallWidth = request.form['wallWidth']
 
-# Calculate and output number of gallons needed
+      wallArea = float(wallHeight) * float(wallWidth)
+      gallonsNeeded = round(wallArea / sqftPerGallon, 2)
+      quartsNeeded = round(wallArea / (sqftPerGallon / 4), 2)
+      return render_template('index.html', wallArea=wallArea, gallonsNeeded=gallonsNeeded, quartsNeeded=quartsNeeded)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', debug=True)
