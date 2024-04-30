@@ -9,6 +9,6 @@ description = ""
 name = "paintestimator"
 version = "0.1.0"
 [tool.poetry.dependencies]
-Flask = "^1.1"
+Flask = "^2.2"
 python = "^3.7"
 [tool.poetry.dev-dependencies]
